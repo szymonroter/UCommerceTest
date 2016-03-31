@@ -1,0 +1,16 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = null;
+}
+
+@{
+    var basket = UCommerce.Api.TransactionLibrary.GetBasket();
+    if (basket.PurchaseOrder.OrderTotal != null)
+    {
+        <span>total order value: @basket.PurchaseOrder.OrderTotal.Value </span>
+        <span> @basket.PurchaseOrder</span>
+    }
+    
+}

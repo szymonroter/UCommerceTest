@@ -1,0 +1,20 @@
+﻿@inherits UmbracoViewPage<UCommerce.EntitiesV2.Product>
+
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "Master.cshtml";
+}
+
+<div class="container">
+
+    <div class="row">
+        <h1>@Model.Name</h1>
+    </div>
+
+    <div class="row">
+        <span>Id: @Model.Id</span>
+    </div>
+    <span style="margin-left: -15px">Price: @CatalogLibrary.CalculatePrice(@Model).YourPrice.Amount</span>
+</div>
