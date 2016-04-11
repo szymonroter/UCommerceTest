@@ -1,0 +1,11 @@
+﻿@using UCommerceTest2.Products
+@inherits Umbraco.Web.Macros.PartialViewMacroPage
+
+@{
+    var products = Products.GetThreeLastProducts();
+}
+
+@foreach (var product in products)
+{
+    @Html.ActionLink(product.Name, "ShowDetails", "Product", new { id = product.Id }, null)
+}

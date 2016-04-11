@@ -1,0 +1,67 @@
+﻿@inherits UmbracoViewPage<UCommerce.EntitiesV2.Product>
+
+@using ServiceStack.Common
+@using UCommerce.Api
+@using UCommerceTest2.Helpers
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "Master.cshtml";
+}
+
+@{
+    var uniqueVariants = Model.Variants.IsEmpty() ? null : Model.Variants.SelectMany(p => p.ProductProperties)
+        .Where(v => v.ProductDefinitionField.DisplayOnSite)
+        .GroupBy(v => v.ProductDefinitionField);
+}
+
+<div class="container">
+    <div class="row">
+        <img class="thumb-image" src="@ImageHelper.GetProductImageUrl(Model.ThumbnailImageMediaId)" />
+        <h1 class="product-name">@Model.Name</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="row">
+                <span>Id: @Model.Id</span>
+            </div>
+            <div class="product-info">
+                @if (CatalogLibrary.CalculatePrice(@Model).YourPrice != null)
+                {
+                    <span>Price: @CatalogLibrary.CalculatePrice(@Model).YourPrice.Amount</span>
+                }
+                else
+                {
+                    <span>Product price not set</span>
+                }
+            </div>
+            @using (Ajax.BeginForm("AddToBasket", "Basket", new AjaxOptions { HttpMethod = "POST" }))
+            {
+                <div class="product-info">
+                    @if (uniqueVariants != null && uniqueVariants.Any())
+                    {
+                        foreach (var prop in uniqueVariants)
+                        {
+                            var controlName = string.Format("variation-{0}", prop.Key.Name.ToLower());
+                            <label for="@controlName">@prop.Key.GetDisplayName()</label>
+                            <select name="@controlName" id="@controlName" class="variant">
+                                <option value="">-- Please Select --</option>
+                                @foreach (var value in prop.Select(p => p.Value).Distinct())
+                                {
+                                    <option value="@value">@value</option>
+                                }
+                            </select>
+                        }
+                    }
+                    @Html.HiddenFor(m => m.Sku)
+                    @Html.HiddenFor(m => m.Id)
+                    <label for="quantity">Quantity: </label><input type="number" value="1" name="quantity" />
+                    <input type="submit" value="Add to basket" />
+                </div>
+            }
+        </div>
+        <div class="col-sm-8">
+            <img class="primary-image" src="@ImageHelper.GetProductImageUrl(Model.PrimaryImageMediaId)" />
+        </div>
+    </div>
+</div>
+

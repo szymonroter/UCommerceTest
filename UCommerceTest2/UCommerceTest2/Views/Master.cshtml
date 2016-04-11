@@ -1,6 +1,6 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<dynamic>
 @{
-	Layout = null;
+    Layout = null;
 }
 <head>
     <title>Test shop</title>
@@ -8,9 +8,26 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link href="~/css/product.css" rel="stylesheet" />
+    <link href="~/css/address.css" rel="stylesheet" />
+    <link href="~/css/styles.css" rel="stylesheet"/>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 
-@RenderBody()
+
+<body>
+    
+
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            @Html.Partial("Navigation")
+        </div>
+        <div class="container">
+            @Html.ActionLink("View basket", "ShowBasket", "Basket", null, new { @class = "pull-right btn btn-info view-basket" })
+            @RenderBody()
+        </div>
+    </div>
+</body>
+

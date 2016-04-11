@@ -1,0 +1,21 @@
+.primary-image {
+	width: 150px;
+	height: 150px;
+}
+
+.thumb-image {
+	width: 30px;
+	height: 30px;
+}
+
+.product-name {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.product-info {
+    margin-left: -15px;
+}
+
+.info {
+    
+}

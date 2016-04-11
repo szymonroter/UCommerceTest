@@ -1,0 +1,33 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "Master.cshtml";
+}
+
+@{
+    var catalogs = CatalogLibrary.GetAllCatalogs();
+}
+@foreach (var catalog in catalogs)
+{
+    <div class="row">
+        <h1>Products in @catalog.Name:</h1>
+    </div>
+    <div class="row">
+        @foreach (var category in catalog.Categories)
+        {
+            <h2 style="float: left; clear: both; width: 100%"> @category.Name </h2>
+
+            foreach (var product in category.Products)
+            {
+                <div class="col-sm-4">
+                    <span>@product.Name</span>
+
+                    @Html.ActionLink("Details", "ShowDetails", "Product", new { id = product.Id }, null)
+                </div>
+            }
+
+        }
+    </div>
+}
+

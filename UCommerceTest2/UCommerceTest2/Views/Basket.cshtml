@@ -1,16 +1,145 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce
 @using UCommerce.Api
 @using ContentModels = Umbraco.Web.PublishedContentModels;
 @{
-	Layout = null;
+    Layout = "Master.cshtml";
 }
 
 @{
-    var basket = UCommerce.Api.TransactionLibrary.GetBasket();
-    if (basket.PurchaseOrder.OrderTotal != null)
+    var order = TransactionLibrary.GetBasket(true).PurchaseOrder;
+    var currency = order.BillingCurrency;
+
+
+    var subTotal = new Money(0, currency);
+    var tax = new Money(0, currency);
+    var discount = new Money(0, currency);
+    var orderTotal = new Money(0, currency);
+
+    if (order.SubTotal.HasValue)
     {
-        <span>total order value: @basket.PurchaseOrder.OrderTotal.Value </span>
-        <span> @basket.PurchaseOrder</span>
+        subTotal = new Money(order.SubTotal.Value, currency);
     }
-    
+    if (order.VAT.HasValue)
+    {
+        tax = new Money(order.VAT.Value, currency);
+    }
+    if (order.DiscountTotal.HasValue)
+    {
+        discount = new Money(order.DiscountTotal.Value * -1, currency);
+    }
+    if (order.OrderTotal.HasValue)
+    {
+        orderTotal = new Money(order.OrderTotal.Value, currency);
+    }
 }
+<div class="container">
+    <div class="row-fluid">
+        @if (!order.OrderLines.Any())
+        {
+            <div class="alert alert-info">
+                <p>
+                    Your cart is empty. Please <a href="/">return to our store and add some items</a>.
+                </p>
+            </div>
+        }
+        else
+        {
+            <form method="post">
+                <table class="table table-bordered thead-inverse" id="cart">
+                    <thead>
+                        <tr>
+                            <th class="span7">Description</th>
+                            <th class="span1 money">Price</th>
+                            <th class="span1 money">VAT</th>
+                            <th class="span2">Quantity</th>
+                            <th class="span1 money">Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var lineItem in order.OrderLines)
+                        {
+                            var product = @CatalogLibrary.GetProduct(lineItem.Sku);
+                            var itemPrice = new Money(lineItem.Price, currency);
+                            var itemTax = new Money(lineItem.VAT, currency);
+                            var lineTotal = new Money(lineItem.Total.Value, currency);
+
+                            <tr class="order-line">
+                                <td><a href="@CatalogLibrary.GetNiceUrlForProduct(product)">@lineItem.ProductName</a></td>
+                                <td class="money">
+                                    @if (lineItem.UnitDiscount.HasValue && lineItem.UnitDiscount > 0)
+                                    {
+                                        var nowPrice = new Money((lineItem.Price - lineItem.UnitDiscount.Value), currency);
+
+                                        <span style="text-decoration: line-through">
+                                            @itemPrice
+                                        </span>
+                                        @nowPrice
+                                    }
+                                    else
+                                    {
+                                        @itemPrice
+                                    }
+                                </td>
+                                <td class="money">
+                                    @itemTax
+                                </td>
+                                <td>
+                                    <span class="qty">@lineItem.Quantity</span>
+                                </td>
+                                <td class="money line-total">
+                                    @lineTotal
+                                </td>
+                                <td>
+                                    @Html.ActionLink("X", "RemoveItem", "Basket", new { id = lineItem.OrderLineId }, null)
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td rowspan="4">
+                                <div class="span6">
+                                    <div class="input-append">
+                                        
+
+                                    </div>
+                                </div>
+                            </td>
+                            <td colspan="2" rowspan="4"></td>
+                            <td>Sub total:</td>
+                            <td class="money order-subtotal">
+                                @subTotal
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>VAT:</td>
+                            <td class="money order-tax">
+                                @tax
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Discounts:</td>
+                            <td class="money order-discounts">
+                                @discount
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Order total:</td>
+                            <td class="money order-total">
+                                @orderTotal
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pull-right">
+                    @Html.ActionLink("Clear", "Clear", "Basket", null, new { @class="btn btn-large btn-danger"})
+                    @Html.ActionLink("Continue to Checkout", "Checkout", "Basket", null, new { @class="btn btn-large btn-success"})
+                </div>
+            </form>
+        }
+    </div>
+</div>

@@ -141,6 +141,10 @@
     <Reference Include="Semver">
       <HintPath>..\packages\semver.1.1.2\lib\net45\Semver.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.Common, Version=3.9.55.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\ServiceStack.Common.dll</HintPath>
+    </Reference>
     <Reference Include="SQLCE4Umbraco">
       <HintPath>..\packages\UmbracoCms.Core.7.4.2\lib\SQLCE4Umbraco.dll</HintPath>
     </Reference>
@@ -251,6 +255,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\address.css" />
+    <Content Include="css\product.css" />
+    <Content Include="css\styles.css" />
     <Content Include="packages.config" />
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="Views\Web.config" />
@@ -279,11 +286,17 @@
     <Content Include="Config\BaseRestExtensions.config" />
     <Content Include="Config\applications.config" />
     <Content Include="Config\404handlers.config" />
-    <Content Include="Views\HomePage.cshtml" />
     <Content Include="Views\Basket.cshtml" />
-    <Content Include="Views\AddBillingInformation.cshtml" />
-    <Content Include="Views\ProductPage.cshtml" />
     <Content Include="Views\Master.cshtml" />
+    <Content Include="Views\Payment.cshtml" />
+    <Content Include="Views\AddressInformation.cshtml" />
+    <Content Include="Views\Home.cshtml" />
+    <Content Include="Views\Product.cshtml" />
+    <Content Include="Views\Partials\Navigation.cshtml" />
+    <Content Include="Views\MediaPage.cshtml" />
+    <Content Include="Views\MacroPartials\ThreeLastestProducts.cshtml" />
+    <Content Include="Views\MacroPage.cshtml" />
+    <Content Include="Views\Partials\ProductDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -321,8 +334,14 @@
   <ItemGroup>
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\Navigation.cs" />
+    <Compile Include="Products\Products.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Order\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,11 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.MacroPage>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+@Umbraco.Field("yourDocumentPropertyAliasName", removeParagraphTags: true)
+
+<h2>@CurrentPage.title</h2>
+
+<div>@CurrentPage.body</div>

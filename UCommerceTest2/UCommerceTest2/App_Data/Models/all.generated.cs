@@ -36,32 +36,6 @@ using  Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	/// <summary>HomePage</summary>
-	[PublishedContentModel("homePage")]
-	public partial class HomePage : PublishedContentModel
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "homePage";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HomePage(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HomePage, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
 	/// <summary>Basket</summary>
 	[PublishedContentModel("basket")]
 	public partial class Basket : PublishedContentModel
@@ -88,33 +62,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	/// <summary>AddBillingInformation</summary>
-	[PublishedContentModel("addBillingInformation")]
-	public partial class AddBillingInformation : PublishedContentModel
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "addBillingInformation";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public AddBillingInformation(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<AddBillingInformation, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>ProductPage</summary>
+	/// <summary>Product</summary>
 	[PublishedContentModel("productPage")]
 	public partial class ProductPage : PublishedContentModel
 	{
@@ -137,6 +85,216 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ProductPage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>MasterDocType</summary>
+	[PublishedContentModel("masterDocType")]
+	public partial class MasterDocType : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "masterDocType";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public MasterDocType(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<MasterDocType, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// PageDescription
+		///</summary>
+		[ImplementPropertyType("pageDescription")]
+		public string PageDescription
+		{
+			get { return this.GetPropertyValue<string>("pageDescription"); }
+		}
+
+		///<summary>
+		/// PageTitle
+		///</summary>
+		[ImplementPropertyType("pageTitle")]
+		public string PageTitle
+		{
+			get { return this.GetPropertyValue<string>("pageTitle"); }
+		}
+	}
+
+	/// <summary>AddressInformation</summary>
+	[PublishedContentModel("addAddressInformation")]
+	public partial class AddAddressInformation : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "addAddressInformation";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public AddAddressInformation(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<AddAddressInformation, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Payment</summary>
+	[PublishedContentModel("payment")]
+	public partial class Payment : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "payment";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Payment(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Payment, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Home</summary>
+	[PublishedContentModel("home")]
+	public partial class Home : MasterDocType
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "home";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Home(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Home, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Body
+		///</summary>
+		[ImplementPropertyType("body")]
+		public IHtmlString Body
+		{
+			get { return this.GetPropertyValue<IHtmlString>("body"); }
+		}
+	}
+
+	/// <summary>MediaPage</summary>
+	[PublishedContentModel("mediaPage")]
+	public partial class MediaPage : MasterDocType
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "mediaPage";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public MediaPage(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<MediaPage, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Image
+		///</summary>
+		[ImplementPropertyType("image")]
+		public string Image
+		{
+			get { return this.GetPropertyValue<string>("image"); }
+		}
+	}
+
+	/// <summary>MacroPage</summary>
+	[PublishedContentModel("macroPage")]
+	public partial class MacroPage : MasterDocType
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "macroPage";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public MacroPage(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<MacroPage, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Body
+		///</summary>
+		[ImplementPropertyType("body")]
+		public IHtmlString Body
+		{
+			get { return this.GetPropertyValue<IHtmlString>("body"); }
+		}
+
+		///<summary>
+		/// Title
+		///</summary>
+		[ImplementPropertyType("title")]
+		public string Title
+		{
+			get { return this.GetPropertyValue<string>("title"); }
 		}
 	}
 
@@ -175,9 +333,29 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
+	// Mixin content Type 1032 with alias "Image"
+	/// <summary>Image</summary>
+	public partial interface IImage : IPublishedContent
+	{
+		/// <summary>Size</summary>
+		string UmbracoBytes { get; }
+
+		/// <summary>Type</summary>
+		string UmbracoExtension { get; }
+
+		/// <summary>Upload image</summary>
+		Umbraco.Web.Models.ImageCropDataSet UmbracoFile { get; }
+
+		/// <summary>Height</summary>
+		string UmbracoHeight { get; }
+
+		/// <summary>Width</summary>
+		string UmbracoWidth { get; }
+	}
+
 	/// <summary>Image</summary>
 	[PublishedContentModel("Image")]
-	public partial class Image : PublishedContentModel
+	public partial class Image : PublishedContentModel, IImage
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "Image";
@@ -206,8 +384,11 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("umbracoBytes")]
 		public string UmbracoBytes
 		{
-			get { return this.GetPropertyValue<string>("umbracoBytes"); }
+			get { return GetUmbracoBytes(this); }
 		}
+
+		/// <summary>Static getter for Size</summary>
+		public static string GetUmbracoBytes(IImage that) { return that.GetPropertyValue<string>("umbracoBytes"); }
 
 		///<summary>
 		/// Type
@@ -215,8 +396,11 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("umbracoExtension")]
 		public string UmbracoExtension
 		{
-			get { return this.GetPropertyValue<string>("umbracoExtension"); }
+			get { return GetUmbracoExtension(this); }
 		}
+
+		/// <summary>Static getter for Type</summary>
+		public static string GetUmbracoExtension(IImage that) { return that.GetPropertyValue<string>("umbracoExtension"); }
 
 		///<summary>
 		/// Upload image
@@ -224,8 +408,11 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("umbracoFile")]
 		public Umbraco.Web.Models.ImageCropDataSet UmbracoFile
 		{
-			get { return this.GetPropertyValue<Umbraco.Web.Models.ImageCropDataSet>("umbracoFile"); }
+			get { return GetUmbracoFile(this); }
 		}
+
+		/// <summary>Static getter for Upload image</summary>
+		public static Umbraco.Web.Models.ImageCropDataSet GetUmbracoFile(IImage that) { return that.GetPropertyValue<Umbraco.Web.Models.ImageCropDataSet>("umbracoFile"); }
 
 		///<summary>
 		/// Height
@@ -233,8 +420,11 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("umbracoHeight")]
 		public string UmbracoHeight
 		{
-			get { return this.GetPropertyValue<string>("umbracoHeight"); }
+			get { return GetUmbracoHeight(this); }
 		}
+
+		/// <summary>Static getter for Height</summary>
+		public static string GetUmbracoHeight(IImage that) { return that.GetPropertyValue<string>("umbracoHeight"); }
 
 		///<summary>
 		/// Width
@@ -242,8 +432,11 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("umbracoWidth")]
 		public string UmbracoWidth
 		{
-			get { return this.GetPropertyValue<string>("umbracoWidth"); }
+			get { return GetUmbracoWidth(this); }
 		}
+
+		/// <summary>Static getter for Width</summary>
+		public static string GetUmbracoWidth(IImage that) { return that.GetPropertyValue<string>("umbracoWidth"); }
 	}
 
 	/// <summary>File</summary>
@@ -296,6 +489,95 @@ namespace Umbraco.Web.PublishedContentModels
 		public object UmbracoFile
 		{
 			get { return this.GetPropertyValue("umbracoFile"); }
+		}
+	}
+
+	/// <summary>Image with properties</summary>
+	[PublishedContentModel("imageWithProperties")]
+	public partial class ImageWithProperties : PublishedContentModel, IImage
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "imageWithProperties";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Media;
+#pragma warning restore 0109
+
+		public ImageWithProperties(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ImageWithProperties, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// description
+		///</summary>
+		[ImplementPropertyType("description")]
+		public string Description
+		{
+			get { return this.GetPropertyValue<string>("description"); }
+		}
+
+		///<summary>
+		/// test
+		///</summary>
+		[ImplementPropertyType("test")]
+		public string Test
+		{
+			get { return this.GetPropertyValue<string>("test"); }
+		}
+
+		///<summary>
+		/// Size
+		///</summary>
+		[ImplementPropertyType("umbracoBytes")]
+		public string UmbracoBytes
+		{
+			get { return Image.GetUmbracoBytes(this); }
+		}
+
+		///<summary>
+		/// Type
+		///</summary>
+		[ImplementPropertyType("umbracoExtension")]
+		public string UmbracoExtension
+		{
+			get { return Image.GetUmbracoExtension(this); }
+		}
+
+		///<summary>
+		/// Upload image
+		///</summary>
+		[ImplementPropertyType("umbracoFile")]
+		public Umbraco.Web.Models.ImageCropDataSet UmbracoFile
+		{
+			get { return Image.GetUmbracoFile(this); }
+		}
+
+		///<summary>
+		/// Height
+		///</summary>
+		[ImplementPropertyType("umbracoHeight")]
+		public string UmbracoHeight
+		{
+			get { return Image.GetUmbracoHeight(this); }
+		}
+
+		///<summary>
+		/// Width
+		///</summary>
+		[ImplementPropertyType("umbracoWidth")]
+		public string UmbracoWidth
+		{
+			get { return Image.GetUmbracoWidth(this); }
 		}
 	}
 

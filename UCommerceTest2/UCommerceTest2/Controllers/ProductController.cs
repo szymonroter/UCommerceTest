@@ -1,9 +1,6 @@
-﻿using System.Web.Mvc;
+﻿
+using System.Web.Mvc;
 using UCommerce.Api;
-using UCommerce.EntitiesV2;
-using UCommerceTest2.Models;
-using Umbraco.Web;
-using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
 
 namespace UCommerceTest2.Controllers
@@ -13,8 +10,8 @@ namespace UCommerceTest2.Controllers
         public ActionResult ShowDetails(int id)
         {
             var product = CatalogLibrary.GetProduct(id);
-
-            return View("~/Views/ProductPage.cshtml", product);
+            
+            return View("~/Views/Product.cshtml", product);
         }
     }
 }
